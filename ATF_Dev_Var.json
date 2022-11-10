@@ -1,0 +1,177 @@
+{
+	"id": "4f4d0157-180b-4926-8a7c-2764675c4e61",
+	"name": "ATF Dev Environment",
+	"values": [
+		{
+			"key": "testBaseUrl",
+			"value": "https://api.dev.find.troverlo.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "TrAdminLogin",
+			"value": "andrii.savchyn@atugan.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "TrAdminPass",
+			"value": "Qwer1234*",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "TenantEmail",
+			"value": "TrTestmail969@proton.me",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ATFTag_BSSId",
+			"value": "45:21:19:39:89:90",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Troverlo_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjU3NCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJhbmRyaWkuc2F2Y2h5bkBhdHVnYW4uY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiYW5kcmlpLnNhdmNoeW5AYXR1Z2FuLmNvbSIsIkFzcE5ldC5JZGVudGl0eS5TZWN1cml0eVN0YW1wIjoiNUlSTlFHN0tMNVFRNUtKR0wyS0JVM0dORU02Q0o2TTQiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbiIsInN1YiI6IjU3NCIsImp0aSI6IjA0ZmIxMmJjLWJiOTktNDk3NS05Nzg3LWU4OWRkZTExNDkwNCIsImlhdCI6MTY2Nzg5NzMyMywidG9rZW5fdmFsaWRpdHlfa2V5IjoiMWU4MzE1MjAtMTJkZC00NjMyLWFkYmEtMzkxM2ZmYmZiYmQzIiwidXNlcl9pZGVudGlmaWVyIjoiNTc0IiwidG9rZW5fdHlwZSI6IjAiLCJJc0FwaUtleSI6ImZhbHNlIiwicmVmcmVzaF90b2tlbl92YWxpZGl0eV9rZXkiOiJmZWMyYTc5Yi03ZTAwLTRlNTctOTA1Mi1lZmMyODQ1YmU2YTgiLCJuYmYiOjE2Njc4OTczMjMsImV4cCI6MTY5OTQzMzMyMywiaXNzIjoiQ2xvdWQiLCJhdWQiOiJDbG91ZCJ9.Ltnz32IpHu5yfwayuGLQJXLwsq9SCnXgx2JSdQtICdE",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFIndustryID",
+			"value": "16",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFCountryID",
+			"value": "2",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFCustomertypeID",
+			"value": "11",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFCountrystateID",
+			"value": "4",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFTagtypeID",
+			"value": "5",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFManufacturertypeID",
+			"value": "2",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFAssetCategoryID",
+			"value": "16",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFTenantIDforAPIkey",
+			"value": "383",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFMakeAPIkey",
+			"value": "8$v45!pB",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFcreateAPIkey",
+			"value": "KFP1D2O",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFIDfromCreate",
+			"value": "639",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "tenant_token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjYzOSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJLRlAxRDJPIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoiOCR2NDUhcEJAbm9yZXBseS5jb20iLCJBc3BOZXQuSWRlbnRpdHkuU2VjdXJpdHlTdGFtcCI6IklUTk1TSDc1RVhBUVNJUzVVS1ZFV0YyUEZFQzRaSUZIIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJodHRwOi8vd3d3LmFzcG5ldGJvaWxlcnBsYXRlLmNvbS9pZGVudGl0eS9jbGFpbXMvdGVuYW50SWQiOiIzNzEiLCJzdWIiOiI2MzkiLCJqdGkiOiIxNGMyOTExMC0wNWQzLTQzOTQtODJjMy01NWIzY2RmYzMwNTAiLCJpYXQiOjE2Njc4OTczMjcsInRva2VuX3ZhbGlkaXR5X2tleSI6IjhkMTY5MjY0LTZkMjQtNDI0My1hNGMwLTVhMTVmOGM0YjU5OCIsInVzZXJfaWRlbnRpZmllciI6IjYzOUAzNzEiLCJ0b2tlbl90eXBlIjoiMCIsIklzQXBpS2V5IjoiZmFsc2UiLCJyZWZyZXNoX3Rva2VuX3ZhbGlkaXR5X2tleSI6IjgzNjU1YzZmLTRmMGMtNDAzYS1hZDhlLWU4ZTUzNzA1NmJjZSIsIm5iZiI6MTY2Nzg5NzMyNywiZXhwIjoxNjk5NDMzMzI3LCJpc3MiOiJDbG91ZCIsImF1ZCI6IkNsb3VkIn0.3ddy98N3no378FsoEH4xOKnQQZXzxgVBEPAw-yj3PO4",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "currenttime",
+			"value": "2022-11-08T10:48:49+00:00",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFtag_ID",
+			"value": "377",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATF_AssetID",
+			"value": "393",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATF_subscriptionID",
+			"value": "832",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATFSubCategoryID",
+			"value": "27",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ReaderBSSIDforEnvSetup",
+			"value": "F0:08:D1:CF:9E:94",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "ATFrandom_number",
+			"value": "38",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATF_obsID1",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATF_obsID2",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ATF_obsID3",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-11-09T10:46:30.539Z",
+	"_postman_exported_using": "Postman/10.1.2"
+}

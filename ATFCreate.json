@@ -1,0 +1,708 @@
+{
+	"info": {
+		"_postman_id": "0f90aaec-f711-4f37-9905-1f7daad03f23",
+		"name": "Environment setup",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21587527"
+	},
+	"item": [
+		{
+			"name": "Bearer Token Troverlo Admin",
+			"item": [
+				{
+					"name": "Bearer Token Troverlo Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"automatically added Bearer \", function(){ \r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"Troverlo_token\",responseJson.result.accessToken);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userNameOrEmailAddress\": \"{{TrAdminLogin}}\",\r\n    \"password\": \"{{TrAdminPass}}\",\r\n    \"twoFactorVerificationCode\": \"string\",\r\n    \"rememberClient\": true,\r\n    \"twoFactorRememberClientToken\": \"string\",\r\n    \"singleSignIn\": true,\r\n    \"returnUrl\": \"string\",\r\n    \"captchaResponse\": \"string\",\r\n    \"isMobileService\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/TokenAuth/Authenticate",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"TokenAuth",
+								"Authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Create Tenant admin with API key",
+			"item": [
+				{
+					"name": "Create Tenant Admin and cupture ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Cupture Tenant id\", function(){\r",
+									"   \r",
+									"   const responseJson = pm.response.json();\r",
+									"   const responseJsonParsed = JSON.parse(responseBody);\r",
+									"   console.log(responseJsonParsed)\r",
+									"   if (responseJsonParsed.result !== null) {pm.environment.set(\"ATFTenantIDforAPIkey\",responseJson.result)}\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Troverlo_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tenancyName\": \"ATF Tenant33\",\r\n  \"name\": \"ATF\",\r\n  \"adminFirstName\": \"ATF_Firstname\",\r\n  \"adminLastName\": \"ATF_Lastname\",\r\n  \"adminPhoneNumber\": \"(111) 222-3333\",\r\n  \"adminEmailAddress\": \"{{TenantEmail}}\",\r\n  \"adminPassword\": null,\r\n  \"shouldChangePasswordOnNextLogin\": false,\r\n  \"sendActivationEmail\": false,\r\n  \"editionId\": 1,\r\n  \"isActive\": true,\r\n  \"isInTrialPeriod\": false,\r\n  \"countryId\": {{ATFCountryID}},\r\n  \"customerTypeId\": {{ATFCustomertypeID}},\r\n  \"industryId\": {{ATFIndustryID}},\r\n  \"website\": \"ATF.com\",\r\n  \"phone\": \"(111) 222-3333\",\r\n  \"mailingAddress\": \"ATF_Address\",\r\n  \"mailingCity\": \"ATF_City\",\r\n  \"mailingStateId\": {{ATFCountrystateID}},\r\n  \"mailingZip\": \"11122\",\r\n  \"billingAddress\": \"ATFAddress\",\r\n  \"billingCity\": \"ATF_City\",\r\n  \"billingStateId\": {{ATFCountrystateID}},\r\n  \"billingZip\": \"11122\",\r\n  \"isProfileCompleted\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/Tenant/CreateTenant",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"Tenant",
+								"CreateTenant"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Make API Key",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Capture API key\", function () {\r",
+									"responseBody = JSON.parse(responseBody)\r",
+									"const responseJson = responseBody\r",
+									"console.log(responseJson.result.apiKey)\r",
+									"if (responseJson.result.apiKey.includes(\"@\")) {postman.setNextRequest(\"Make API Key\")}\r",
+									"else {(pm.environment.set(\"ATFMakeAPIkey\",responseJson.result.apiKey))}\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Troverlo_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/ApiKeys/MakeApiKey",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"ApiKeys",
+								"MakeApiKey"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create API Key user and capture API key and ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Capture apiKey\", function(){\r",
+									"   \r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"ATFcreateAPIkey\",responseJson.result.apiKey);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capture ID\", function(){\r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"ATFIDfromCreate\",responseJson.result.id);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Troverlo_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"secret\": \"{{ATFMakeAPIkey}}\",\r\n  \"tenantId\": {{ATFTenantIDforAPIkey}},\r\n  \"apiKey\": \"{{ATFMakeAPIkey}}\",\r\n  \"id\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/ApiKeys/Create",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"ApiKeys",
+								"Create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Troverlo_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"user\": {\r\n    \"id\": {{ATFIDfromCreate}},\r\n    \"name\": \"TestuserName\",\r\n    \"surname\": \"TestuserSurname\",\r\n    \"userName\": \"{{ATFcreateAPIkey}}\",\r\n    \"emailAddress\": \"{{ATFMakeAPIkey}}@noreply.com\",\r\n    \"phoneNumber\": \"(111) 222-3333\",\r\n    \"password\": \"{{ATFMakeAPIkey}}\",\r\n    \"isActive\": true,\r\n    \"shouldChangePasswordOnNextLogin\": false,\r\n    \"isTwoFactorEnabled\": false,\r\n    \"isLockoutEnabled\": false,\r\n    \"isBillingContact\": false,\r\n    \"tenantId\": {{ATFTenantIDforAPIkey}}\r\n  },\r\n  \"assignedRoleNames\": [\r\n    \"Admin\"\r\n  ],\r\n  \"sendActivationEmail\": false,\r\n  \"setRandomPassword\": false,\r\n  \"organizationUnits\": [\r\n   \r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/User/CreateOrUpdateUser",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"User",
+								"CreateOrUpdateUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tenant Admin bearer token",
+			"item": [
+				{
+					"name": "Bearer token Tenant admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"automatically added Bearer \", function(){\r",
+									"   \r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"tenant_token\",responseJson.result.accessToken);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userNameOrEmailAddress\": \"{{ATFMakeAPIkey}}@noreply.com\",\r\n    \"password\": \"{{ATFMakeAPIkey}}\",\r\n    \"twoFactorVerificationCode\": \"string\",\r\n    \"rememberClient\": true,\r\n    \"twoFactorRememberClientToken\": \"string\",\r\n    \"singleSignIn\": true,\r\n    \"returnUrl\": \"string\",\r\n    \"captchaResponse\": \"string\",\r\n    \"isMobileService\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/TokenAuth/Authenticate",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"TokenAuth",
+								"Authenticate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Add tag and create asset and observations",
+			"item": [
+				{
+					"name": "Capture tag ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Capture tag id\", function(){\r",
+									"   \r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"ATFtag_ID\",responseJson.result.tag.id);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{Troverlo_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/Tags/GetTagForViewByTagId?tagId={{ATFTag_BSSId}}",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"Tags",
+								"GetTagForViewByTagId"
+							],
+							"query": [
+								{
+									"key": "tagId",
+									"value": "{{ATFTag_BSSId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create asset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Cupture asset id\", function(){\r",
+									"   \r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"ATF_AssetID\",responseJson.result);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tenant_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ATF_Asset\",\r\n    \"baseUsageTime\": 0,\r\n    \"make\": \"\",\r\n    \"model\": \"\",\r\n    \"serialNumber\": \"\",\r\n    \"categoryId\": \"{{ATFAssetCategoryID}}\",\r\n    \"subCategoryId\": {{ATFSubCategoryID}}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/Assets/CreateOrEditGetId",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"Assets",
+								"CreateOrEditGetId"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create and capture subscription",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Cupture subscription id\", function(){\r",
+									"   \r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"ATF_subscriptionID\",responseJson.result);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"ATFrandom_number\", _.random(1, 100))"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tenant_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"subscriptionId\": \"{{ATFrandom_number}}\",\r\n  \"validityInDays\": 9999,\r\n  \"isUsed\": true,\r\n  \"tagTypeId\": {{ATFTagtypeID}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/Subscriptions/CreateOrEdit",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"Subscriptions",
+								"CreateOrEdit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create tag subscription",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tenant_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isActive\": true,\r\n    \"activationDate\": \"{{currenttime}}\",\r\n    \"renewalDate\": \"2030-10-17T16:00:00.000-05:00\",\r\n    \"tagId\": {{ATFtag_ID}},\r\n    \"subscriptionId\": {{ATF_subscriptionID}},\r\n    \"subscriptionStatusId\": 2,\r\n    \"tenantId\": {{ATFTenantIDforAPIkey}},\r\n    \"assetId\": {{ATF_AssetID}},\r\n    \"description\": \"\",\r\n    \"id\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/TagSubscriptions/CreateOrEdit",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"TagSubscriptions",
+								"CreateOrEdit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create observations (Mobile)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tenant_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accessPoints\": [\r\n        {\r\n            \"accuracy\": 5,\r\n            \"altitude\": 5,\r\n            \"ssId\": \"ATFObservation1\",\r\n            \"bssId\": \"{{ATFTag_BSSId}}\",\r\n            \"capabilities\": \"[ESS]\",\r\n            \"frequency\": 2447,\r\n            \"speed\": 0,\r\n            \"heading\": 0,\r\n            \"hpe\": 0,\r\n            \"isReader\": false,\r\n            \"latitude\": 37.4219999,\r\n            \"longitude\": -122.095,\r\n            \"signalStrength\": -30,\r\n            \"source\": \"Troverlo Mobile app\",\r\n            \"timeDetected\": \"2022-09-22 16:15:00.000\"\r\n        },\r\n        {\r\n            \"accuracy\": 3,\r\n            \"altitude\": 6,\r\n            \"ssId\": \"ATFObservation2\",\r\n            \"bssId\": \"{{ATFTag_BSSId}}\",\r\n            \"capabilities\": \"[ESS]\",\r\n            \"frequency\": 2447,\r\n            \"speed\": 0,\r\n            \"heading\": 0,\r\n            \"hpe\": 0,\r\n            \"isReader\": false,\r\n            \"latitude\": 37.4239999,\r\n            \"longitude\": -126.095,\r\n            \"signalStrength\": -30,\r\n            \"source\": \"Troverlo Mobile app\",\r\n            \"timeDetected\": \"2022-09-22 16:10:00.000\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/GroupAssetDetections/CreateBulk",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"GroupAssetDetections",
+								"CreateBulk"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create observations (Reader)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tenant_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"readerPackage\": [\r\n        {\r\n            \"TS\": \"2022-09-22 16:00:00.000\",  \r\n            \"MAC\": \"{{ReaderBSSIDforEnvSetup}}\",\r\n            \"LAT\": 30.0000,\r\n            \"Long\": -96.0000,\r\n            \"Alt\": 97.6,\r\n            \"Sp\": 0,\r\n            \"Hpe\": 0.76,\r\n            \"tags\": [\r\n                {\r\n                    \"MAC\": \"{{ATFTag_BSSId}}\",\r\n                    \"SSID\":\"Troverlo_0011\",\r\n                    \"Freq\": 2412.0,\r\n                    \"RSSI\": -77.0,\r\n                    \"TS\": \"2022-04-22 16:00:00.000\",\r\n                    \"LAT\": 31.0000,\r\n                    \"Long\": -97.0000,\r\n                    \"Alt\": 97.6,\r\n                    \"Sp\": 0,\r\n                    \"Hpe\": 0.73\r\n                }\r\n            ]\r\n        }      \r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/clientapi/V1/groupassetdetections",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"clientapi",
+								"V1",
+								"groupassetdetections"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Capture observations IDs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Capture observation id\", function(){\r",
+									"   \r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"ATF_obsID1\",responseJson.result.pagedResult.items[0].id);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capture observation id\", function(){\r",
+									"   \r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"ATF_obsID2\",responseJson.result.pagedResult.items[1].id);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Capture observation id\", function(){\r",
+									"   \r",
+									"   const responseJson = pm.response.json();\r",
+									"  pm.environment.set(\"ATF_obsID3\",responseJson.result.pagedResult.items[2].id);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var moment = require('moment'); \r",
+									"pm.environment.set('currenttime',moment().format(('YYYY-MM-DDTHH:mm:ss+00:00')));"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tenant_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromTime\": null,\r\n    \"toTime\": \"{{currenttime}}\",\r\n    \"assetIds\": [\r\n        {{ATF_AssetID}}\r\n    ],\r\n    \"sources\": [],\r\n    \"tagIds\": [],\r\n    \"fromAccuracy\": null,\r\n    \"toAccuracy\": null,\r\n    \"lastObservationNumber\": 2000,\r\n    \"maxResultCount\": 250,\r\n    \"skipCount\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{testBaseUrl}}/api/services/app/GroupAssetDetections/GetObservationsForAssetsDetails",
+							"host": [
+								"{{testBaseUrl}}"
+							],
+							"path": [
+								"api",
+								"services",
+								"app",
+								"GroupAssetDetections",
+								"GetObservationsForAssetsDetails"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
